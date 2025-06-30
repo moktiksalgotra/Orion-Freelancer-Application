@@ -15,13 +15,17 @@ ALLOWED_ORIGINS = os.getenv(
     "http://localhost:5173,http://localhost:3000,https://upwork-job-analyzer-frontend.onrender.com"
 ).split(",")
 
+# Print allowed origins for debugging
+print(f"Allowed CORS origins: {ALLOWED_ORIGINS}")
+
 # Add CORS middleware for frontend integration
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 @app.get("/")
@@ -35,6 +39,7 @@ def read_root():
 
 @app.get("/health")
 def health_check():
+    print("Health check endpoint called")
     return {"status": "healthy"}
 
 # Include all routers

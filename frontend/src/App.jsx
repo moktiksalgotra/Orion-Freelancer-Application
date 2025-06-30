@@ -36,7 +36,7 @@ function App() {
         {backendStatus === 'disconnected' && (
           <div className="bg-red-600 text-white px-4 py-2 text-center">
             <p className="text-sm">
-              ⚠️ Backend server is not running. Please start the FastAPI backend at http://localhost:8000
+              ⚠️ Backend server is not running. Please check the backend service status.
             </p>
           </div>
         )}

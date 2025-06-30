@@ -7,15 +7,29 @@ class JobAnalyzer:
         try:
             # Try to load the large model with word vectors
             self.nlp = spacy.load("en_core_web_lg")
+            print("Loaded spaCy en_core_web_lg model successfully")
         except OSError:
-            print("Large language model not found. Please install it using:")
-            print("python -m spacy download en_core_web_lg")
-            # Fallback to small model if large is not available
+            print("Large language model not found. Trying to install it...")
             try:
-                self.nlp = spacy.load("en_core_web_sm")
-                print("Warning: Using small model. Skill matching will be less accurate.")
-            except OSError:
-                raise Exception("No spaCy model found. Please install a model using: python -m spacy download en_core_web_lg")
+                import subprocess
+                import sys
+                subprocess.check_call([sys.executable, "-m", "spacy", "download", "en_core_web_lg"])
+                self.nlp = spacy.load("en_core_web_lg")
+                print("Successfully installed and loaded en_core_web_lg model")
+            except Exception as e:
+                print(f"Failed to install large model: {e}")
+                # Fallback to small model if large is not available
+                try:
+                    self.nlp = spacy.load("en_core_web_sm")
+                    print("Warning: Using small model. Skill matching will be less accurate.")
+                except OSError:
+                    print("No spaCy model found. Installing small model...")
+                    try:
+                        subprocess.check_call([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
+                        self.nlp = spacy.load("en_core_web_sm")
+                        print("Successfully installed and loaded en_core_web_sm model")
+                    except Exception as e2:
+                        raise Exception(f"No spaCy model found and failed to install. Error: {e2}")
         
         self.min_hourly_rate = 15
         self.min_client_rating = 4.0
