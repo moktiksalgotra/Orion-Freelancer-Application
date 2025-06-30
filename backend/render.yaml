@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: upwork-job-analyzer-backend
+    name: orion-freelancer-backend
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt && python -m spacy download en_core_web_lg
@@ -11,4 +11,6 @@ services:
       - key: GROQ_API_KEY
         sync: false
       - key: DATABASE_URL
-        sync: false 
+        sync: false
+      - key: ALLOWED_ORIGINS
+        value: https://orion-freelancer-frontend.onrender.com,http://localhost:5173,http://localhost:3000 

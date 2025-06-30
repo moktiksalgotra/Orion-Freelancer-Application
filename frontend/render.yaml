@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: upwork-job-analyzer-frontend
+    name: orion-freelancer-frontend
     env: static
     plan: free
     buildCommand: npm install && npm run build

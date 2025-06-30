@@ -12,7 +12,7 @@ app = FastAPI(
 # Get allowed origins from environment variable or use defaults
 ALLOWED_ORIGINS = os.getenv(
     "ALLOWED_ORIGINS", 
-    "http://localhost:5173,http://localhost:3000,https://upwork-job-analyzer-frontend.onrender.com"
+    "http://localhost:5173,http://localhost:3000,https://upwork-job-analyzer-frontend.onrender.com,https://orion-freelancer-frontend.onrender.com"
 ).split(",")
 
 # Print allowed origins for debugging
