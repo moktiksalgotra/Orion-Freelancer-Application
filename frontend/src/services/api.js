@@ -123,7 +123,12 @@ export const healthAPI = {
     const baseURL = import.meta.env.VITE_API_BASE_URL || 'https://orion-freelancer-application.onrender.com/api/v1';
     const healthURL = baseURL.replace('/api/v1', '') + '/health';
     console.log('Health check URL:', healthURL);
-    return axios.get(healthURL);
+    return axios.get(healthURL, {
+      timeout: 10000, // 10 second timeout
+      headers: {
+        'Accept': 'application/json',
+      }
+    });
   },
 };
 
