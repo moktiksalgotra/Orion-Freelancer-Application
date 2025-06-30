@@ -3,7 +3,12 @@ import re
 from typing import Dict, List
 from dotenv import load_dotenv
 
-load_dotenv()
+# Load environment variables from .env file if it exists
+try:
+    load_dotenv()
+except Exception as e:
+    print(f"⚠️ Warning: Could not load .env file: {e}")
+    print("Continuing without .env file...")
 
 class ProposalGenerator:
     def __init__(self):
