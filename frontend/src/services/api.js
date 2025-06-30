@@ -123,11 +123,21 @@ export const healthAPI = {
     const baseURL = import.meta.env.VITE_API_BASE_URL || 'https://orion-freelancer-application.onrender.com/api/v1';
     const healthURL = baseURL.replace('/api/v1', '') + '/health';
     console.log('Health check URL:', healthURL);
-    return axios.get(healthURL, {
-      timeout: 10000, // 10 second timeout
+    
+    // Use fetch instead of axios to avoid potential CORS issues
+    return fetch(healthURL, {
+      method: 'GET',
       headers: {
         'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+      timeout: 10000,
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+      return response.json();
     });
   },
 };

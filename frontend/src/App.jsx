@@ -22,7 +22,7 @@ function App() {
       try {
         console.log(`Checking backend health... (attempt ${retryCount + 1}/${maxRetries + 1})`);
         const response = await healthAPI.check();
-        console.log('Backend health check successful:', response.data);
+        console.log('Backend health check successful:', response);
         setBackendStatus('connected');
       } catch (error) {
         console.error(`Backend connection failed (attempt ${retryCount + 1}):`, error);
@@ -62,8 +62,10 @@ function App() {
                   const checkBackendHealth = async () => {
                     try {
                       const response = await healthAPI.check();
+                      console.log('Manual retry successful:', response);
                       setBackendStatus('connected');
                     } catch (error) {
+                      console.error('Manual retry failed:', error);
                       setBackendStatus('disconnected');
                     }
                   };
