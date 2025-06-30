@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: upwork-job-analyzer-frontend
+    env: static
+    plan: free
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://upwork-job-analyzer-backend.onrender.com/api/v1 
