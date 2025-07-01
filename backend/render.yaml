@@ -13,4 +13,4 @@ services:
       - key: DATABASE_URL
         sync: false
       - key: ALLOWED_ORIGINS
-        value: https://orionfreelancerapplication.onrender.com,https://orion-freelancer-frontend.onrender.com,http://localhost:5173,http://localhost:3000 
+        value: https://orionfreelancerapplication.onrender.com 

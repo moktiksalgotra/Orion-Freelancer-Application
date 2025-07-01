@@ -15,31 +15,14 @@ function App() {
   const [backendStatus, setBackendStatus] = useState('checking');
 
   useEffect(() => {
-    // Check backend health on app start with retry mechanism
-    const checkBackendHealth = async (retryCount = 0) => {
-      const maxRetries = 3;
-      
+    // Check backend health on app start
+    const checkBackendHealth = async () => {
       try {
-        console.log(`Checking backend health... (attempt ${retryCount + 1}/${maxRetries + 1})`);
-        const response = await healthAPI.check();
-        console.log('Backend health check successful:', response);
+        await healthAPI.check();
         setBackendStatus('connected');
       } catch (error) {
-        console.error(`Backend connection failed (attempt ${retryCount + 1}):`, error);
-        console.error('Error details:', {
-          message: error.message,
-          status: error.response?.status,
-          statusText: error.response?.statusText,
-          data: error.response?.data
-        });
-        
-        if (retryCount < maxRetries) {
-          console.log(`Retrying in 2 seconds...`);
-          setTimeout(() => checkBackendHealth(retryCount + 1), 2000);
-        } else {
-          console.error('Max retries reached, marking backend as disconnected');
-          setBackendStatus('disconnected');
-        }
+        console.error('Backend connection failed:', error);
+        setBackendStatus('disconnected');
       }
     };
 
@@ -52,37 +35,8 @@ function App() {
         {/* Backend Status Banner */}
         {backendStatus === 'disconnected' && (
           <div className="bg-red-600 text-white px-4 py-2 text-center">
-            <div className="flex items-center justify-center gap-4">
-              <p className="text-sm">
-                ⚠️ Backend server is not running. Please check the backend service status.
-              </p>
-              <button
-                onClick={() => {
-                  setBackendStatus('checking');
-                  const checkBackendHealth = async () => {
-                    try {
-                      const response = await healthAPI.check();
-                      console.log('Manual retry successful:', response);
-                      setBackendStatus('connected');
-                    } catch (error) {
-                      console.error('Manual retry failed:', error);
-                      setBackendStatus('disconnected');
-                    }
-                  };
-                  checkBackendHealth();
-                }}
-                className="px-3 py-1 bg-white text-red-600 rounded text-xs font-medium hover:bg-gray-100 transition-colors"
-              >
-                Retry
-              </button>
-            </div>
-          </div>
-        )}
-        
-        {backendStatus === 'checking' && (
-          <div className="bg-yellow-600 text-white px-4 py-2 text-center">
             <p className="text-sm">
-              🔄 Checking backend connection...
+              ⚠️ Backend server is not running. Please start the FastAPI backend at http://localhost:8000
             </p>
           </div>
         )}

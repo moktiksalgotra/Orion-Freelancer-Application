@@ -61,10 +61,9 @@ An AI-powered application that helps freelancers analyze Upwork job postings, ma
 - **spaCy**: Natural language processing for skill matching
 
 ### AI Integration
-- **Groq API**: LLaMA 3.3 model access for advanced proposal generation
-- **Template system**: Professional fallback proposal generation
+- **Groq API**: LLaMA 3.3 model access
+- **Template system**: Fallback proposal generation
 - **Smart prompts**: Optimized AI prompts for better results
-- **Automatic fallback**: Seamless transition between AI and template generation
 
 ### Data Extraction
 - **BeautifulSoup**: HTML parsing and data extraction
@@ -99,21 +98,14 @@ An AI-powered application that helps freelancers analyze Upwork job postings, ma
 
 4. **Set up environment variables**
    Create a `.env` file in the backend directory:
-   ```bash
-   cp env.example .env
-   ```
-   
-   Edit the `.env` file and add your API keys:
    ```env
    GROQ_API_KEY=your_groq_api_key_here
    RAPIDAPI_KEY=be84506f4emsheb5fcce67290d7ep19dda7jsn270f1e5c28f1
    ```
    
    Get your API keys from:
-   - **Groq API**: https://console.groq.com/ (free tier available)
-   - **RapidAPI**: https://rapidapi.com/ (subscribe to Upwork Jobs API)
-   
-   **Important**: The Groq API key is required for AI-powered proposal generation. See `GROQ_SETUP_GUIDE.md` for detailed setup instructions.
+   - Groq API: https://console.groq.com/
+   - RapidAPI: https://rapidapi.com/ (subscribe to Upwork Jobs API)
 
 5. **Test the RapidAPI integration**
    ```bash
@@ -150,18 +142,6 @@ An AI-powered application that helps freelancers analyze Upwork job postings, ma
 ### Backend Tests
 ```bash
 python test_backend.py
-```
-
-### Groq API Integration Tests
-```bash
-# Test Groq API integration
-python test_groq.py
-
-# Interactive test with custom inputs
-python cli_test.py
-
-# Quick test with default values
-python cli_test.py --quick
 ```
 
 ### Frontend Tests

@@ -10,7 +10,7 @@ import spacy
 class UpworkScraper:
     def __init__(self):
         # Get API key from environment variable or use a default one
-        self.rapidapi_key = os.getenv('RAPIDAPI_KEY', 'e0d62349cfmsh4d798dd65fd8115p185499jsndffc919977fe')
+        self.rapidapi_key = os.getenv('RAPIDAPI_KEY', '484377fa76mshc9a5b3875e2f583p15804bjsn5cbe55889a7e')
         # Using RapidAPI service for Upwork jobs
         self.rapidapi_host = "upwork-jobs-api2.p.rapidapi.com"
         self.base_url = "https://upwork-jobs-api2.p.rapidapi.com"

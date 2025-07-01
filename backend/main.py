@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import profiles, jobs, proposals, analytics
-import os
 
 app = FastAPI(
     title="Upwork Job Analyzer API",
@@ -9,23 +8,13 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Get allowed origins from environment variable or use defaults
-ALLOWED_ORIGINS = os.getenv(
-    "ALLOWED_ORIGINS", 
-    "http://localhost:5173,http://localhost:3000,https://upwork-job-analyzer-frontend.onrender.com,https://orion-freelancer-frontend.onrender.com,https://orionfreelancerapplication.onrender.com"
-).split(",")
-
-# Print allowed origins for debugging
-print(f"Allowed CORS origins: {ALLOWED_ORIGINS}")
-
 # Add CORS middleware for frontend integration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
+    allow_origins=["http://localhost:5173", "http://localhost:3000"],  # Vite and React dev servers
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_methods=["*"],
     allow_headers=["*"],
-    expose_headers=["*"],
 )
 
 @app.get("/")
@@ -39,7 +28,6 @@ def read_root():
 
 @app.get("/health")
 def health_check():
-    print("Health check endpoint called")
     return {"status": "healthy"}
 
 # Include all routers

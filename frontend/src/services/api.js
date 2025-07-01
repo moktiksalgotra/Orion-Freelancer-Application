@@ -1,11 +1,8 @@
 import axios from 'axios';
 
-// Get API base URL from environment variable or use default
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://orion-freelancer-application.onrender.com/api/v1';
-
 // Create axios instance with base configuration
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: 'http://localhost:8000/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -119,27 +116,7 @@ export const analyticsAPI = {
 
 // Health check
 export const healthAPI = {
-  check: () => {
-    const baseURL = import.meta.env.VITE_API_BASE_URL || 'https://orion-freelancer-application.onrender.com/api/v1';
-    const healthURL = baseURL.replace('/api/v1', '') + '/health';
-    console.log('Health check URL:', healthURL);
-    
-    // Use fetch instead of axios to avoid potential CORS issues
-    return fetch(healthURL, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      mode: 'cors',
-      timeout: 10000,
-    }).then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    });
-  },
+  check: () => axios.get('http://localhost:8000/health'),
 };
 
 export default api; 

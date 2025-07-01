@@ -38,13 +38,20 @@ async def scrape_jobs(request: ScrapingRequest, db: Database = Depends(get_db)):
     """Scrape jobs from Upwork based on keywords"""
     print("Received scrape request:", request)
     try:
+        # Filter out empty or whitespace-only keywords
+        valid_keywords = [k.strip() for k in request.keywords if k.strip()]
+        if not valid_keywords:
+            # If no valid keywords, use a generic keyword to fetch latest jobs
+            valid_keywords = ["latest"]
+            print("No valid keywords provided. Using default keyword: 'latest'")
+
         scraper = get_scraper()
         scraped_jobs = []
         added_count = 0
         
-        print(f"Processing {len(request.keywords)} keywords: {request.keywords}")
+        print(f"Processing {len(valid_keywords)} keywords: {valid_keywords}")
         
-        for keyword in request.keywords:
+        for keyword in valid_keywords:
             print(f"Searching for keyword: {keyword}")
             jobs = scraper.search_jobs(
                 keywords=[keyword],

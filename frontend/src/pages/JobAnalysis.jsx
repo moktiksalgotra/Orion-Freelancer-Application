@@ -368,7 +368,7 @@ const JobAnalysis = () => {
     setScrapedJobs([]);
     try {
       const response = await scrapeJobs({
-        keywords: [''], // No keyword filtering
+        keywords: [], // Let backend handle default logic
         max_jobs_per_keyword: 5,
       });
       console.log('SCRAPE RESPONSE:', response); // Debug log
