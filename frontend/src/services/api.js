@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with base configuration
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api/v1',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -116,7 +116,7 @@ export const analyticsAPI = {
 
 // Health check
 export const healthAPI = {
-  check: () => axios.get('http://localhost:8000/health'),
+  check: () => axios.get((import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/$/, '') : 'http://localhost:8000') + '/health'),
 };
 
 export default api; 
