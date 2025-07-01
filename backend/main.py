@@ -14,7 +14,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://localhost:3000",
-        "https://orion-freelancer-application.onrender.com"
+        "https://orion-freelancer-application.onrender.com",
+        "https://orion-freelancer-application.vercel.app"
     ],  # Vite, React dev servers, and deployed frontend
     allow_credentials=True,
     allow_methods=["*"],
