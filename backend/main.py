@@ -11,7 +11,11 @@ app = FastAPI(
 # Add CORS middleware for frontend integration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],  # Vite and React dev servers
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "https://orion-freelancer-application.onrender.com"
+    ],  # Vite, React dev servers, and deployed frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -28,6 +32,10 @@ def read_root():
 
 @app.get("/health")
 def health_check():
+    return {"status": "healthy"}
+
+@app.get("/api/v1/health")
+def health_check_v1():
     return {"status": "healthy"}
 
 # Include all routers
